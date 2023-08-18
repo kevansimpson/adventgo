@@ -25,3 +25,8 @@ func TestDay03Solutions(t *testing.T) {
 	assert.Equal(t, 2081, santaRoute(input), "santaRoute")
 	assert.Equal(t, 2341, roboSantaRoute(input), "roboSantaRoute")
 }
+
+func TestDay04Solutions(t *testing.T) {
+	assert.Equal(t, 254575, fiveZeroHash(SecretKey_04_2015), "fiveZeroHash")
+	assert.Equal(t, 1038736, sixZeroHash(SecretKey_04_2015), "sixZeroHash")
+}
