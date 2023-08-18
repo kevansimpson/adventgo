@@ -1,4 +1,4 @@
-module aoc2015
+module github.com/kevansimpson/aoc2015
 
 go 1.21.0
 
