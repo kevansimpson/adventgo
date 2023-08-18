@@ -15,7 +15,7 @@ find . -name go.mod -execdir go test ./... \;
 ```
 
 ## Comparisons
-As always [Advent of Code](www.advent.com) is an opportunity for me to discover new languages.
+As always [Advent of Code](https://adventofcode.com/) is an opportunity for me to discover new languages.
 
 ### 2015
 
