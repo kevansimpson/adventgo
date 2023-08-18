@@ -19,3 +19,9 @@ func TestDay02Solutions(t *testing.T) {
 	assert.Equal(t, 1588178, paper, "howMuchWrappingPaper")
 	assert.Equal(t, 3783758, ribbon, "howMuchRibbon")
 }
+
+func TestDay03Solutions(t *testing.T) {
+	input := util.ReadSingleLine("input03.txt")
+	assert.Equal(t, 2081, santaRoute(input), "santaRoute")
+	assert.Equal(t, 2341, roboSantaRoute(input), "roboSantaRoute")
+}
