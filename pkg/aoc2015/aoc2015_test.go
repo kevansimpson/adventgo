@@ -30,3 +30,9 @@ func TestDay04Solutions(t *testing.T) {
 	assert.Equal(t, 254575, fiveZeroHash(SecretKey_04_2015), "fiveZeroHash")
 	assert.Equal(t, 1038736, sixZeroHash(SecretKey_04_2015), "sixZeroHash")
 }
+
+func TestDay05Solutions(t *testing.T) {
+	input := util.ReadLines("input05.txt")
+	assert.Equal(t, 258, oldNiceStrings(input), "oldNiceStrings")
+	assert.Equal(t, 53, newNiceStrings(input), "newNiceStrings")
+}

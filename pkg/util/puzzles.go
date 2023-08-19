@@ -2,8 +2,33 @@ package util
 
 import (
 	"bufio"
+	"flag"
 	"os"
+	"strconv"
 )
+
+var fullSolve = flag.String("full", "false", "bool flag to run full solutions")
+
+func IsFullSolve() bool {
+	fs, _ := strconv.ParseBool(*fullSolve)
+	return fs
+}
+
+func FastOrFull[T any](fast T, full func() T) T {
+	if IsFullSolve() {
+		return full()
+	} else {
+		return fast
+	}
+}
+
+func FullOrFast[T any](full T, fast T) T {
+	if IsFullSolve() {
+		return full
+	} else {
+		return fast
+	}
+}
 
 func ReadSingleLine(filename string) string {
 	data, err := os.ReadFile(filename)
