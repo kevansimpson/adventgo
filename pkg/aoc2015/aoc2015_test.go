@@ -36,3 +36,10 @@ func TestDay05Solutions(t *testing.T) {
 	assert.Equal(t, 258, oldNiceStrings(input), "oldNiceStrings")
 	assert.Equal(t, 53, newNiceStrings(input), "newNiceStrings")
 }
+
+func TestDay06Solutions(t *testing.T) {
+	input := util.ReadLines("input06.txt")
+	lightsLit, totalBrightness := followLightCommands(input)
+	assert.Equal(t, 543903, lightsLit, "lightsLit")
+	assert.Equal(t, 14687245, totalBrightness, "totalBrightness")
+}
