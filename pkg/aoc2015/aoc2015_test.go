@@ -58,9 +58,9 @@ func TestDay08Solutions(t *testing.T) {
 	assert.Equal(t, 2046, newEncoding, "newEncoding")
 }
 
-// func TestDay09Solutions(t *testing.T) {
-// 	input := util.ReadLines("data/input09.txt")
-// 	shortestRoute, longestRoute := calculateSantaRoutes(input)
-// 	assert.Equal(t, 207, shortestRoute, "shortestRoute")
-// 	assert.Equal(t, 804, longestRoute, "longestRoute")
-// }
+func TestDay09Solutions(t *testing.T) {
+	input := util.ReadLines("data/input09.txt")
+	shortestRoute, longestRoute := calculateSantaRoutes(input)
+	assert.Equal(t, 207, shortestRoute, "shortestRoute")
+	assert.Equal(t, 804, longestRoute, "longestRoute")
+}
