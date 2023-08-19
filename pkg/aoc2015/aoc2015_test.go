@@ -50,3 +50,10 @@ func TestDay07Solutions(t *testing.T) {
 	assert.Equal(t, 46065, signalWireA, "signalWireA")
 	assert.Equal(t, 14134, overrideSignal, "overrideSignal")
 }
+
+func TestDay08Solutions(t *testing.T) {
+	input := util.ReadLines("input08.txt")
+	oldEncoding, newEncoding := encodeSantasList(input)
+	assert.Equal(t, 1333, oldEncoding, "oldEncoding")
+	assert.Equal(t, 2046, newEncoding, "newEncoding")
+}
