@@ -21,8 +21,6 @@ func newNiceStrings(input []string) int {
 
 var vowels = regexp.MustCompile(`[aeiou]`)
 var badStrings = regexp.MustCompile(`(ab|cd|pq|xy)`)
-var adjacentPairs = regexp.MustCompile(`([a-z]{2}).*\\1+`)
-var sandwichLetters = regexp.MustCompile(`([a-z]).\\1+`)
 
 func isOldNice(str string) bool {
 	return (len(vowels.FindAllString(str, -1)) >= 3 &&
@@ -46,7 +44,6 @@ func hasDoubleLetters(str string) bool {
 }
 
 func hasAdjacentPairs(str string) bool {
-	// s := str[1:4]
 	max := len(str) - 2
 	for ix := 0; ix < max; ix += 1 {
 		if strings.Contains(str[ix+2:max+2], str[ix:ix+2]) {
