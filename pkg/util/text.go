@@ -23,6 +23,23 @@ func ExtractInts(str string) []int {
 	return num
 }
 
+// Returns the index if at least one letter that appears twice in a row in the given string, else returns -1.
+func FindLetterPairIndex(str string) int {
+	ltrs := []rune(str)
+	max := len(str) - 1
+	for ix := 0; ix < max; ix += 1 {
+		if ltrs[ix] == ltrs[ix+1] {
+			return ix
+		}
+	}
+	return -1
+}
+
+// Returns true if given string contains at least one letter that appears twice in a row.
+func HasLetterPair(str string) bool {
+	return FindLetterPairIndex(str) >= 0
+}
+
 // Generates MD5 hash in hexidecimal from given string
 func GenerateMD5inHex(str string) string {
 	h := md5.New()

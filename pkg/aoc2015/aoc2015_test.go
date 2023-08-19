@@ -70,3 +70,9 @@ func TestDay10Solutions(t *testing.T) {
 	assert.Equal(t, 492982, fortyTimes, "fortyTimes")
 	assert.Equal(t, 6989950, fiftyTimes, "fiftyTimes")
 }
+
+func TestDay11Solutions(t *testing.T) {
+	firstPswd, secondPswd := nextTwoPasswords(SANTA_CURRENT_PASSWORD_11_2015)
+	assert.Equal(t, "vzbxxyzz", firstPswd, "firstPswd")
+	assert.Equal(t, "vzcaabcc", secondPswd, "secondPswd")
+}

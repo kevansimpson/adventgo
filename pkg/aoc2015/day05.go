@@ -24,23 +24,12 @@ var badStrings = regexp.MustCompile(`(ab|cd|pq|xy)`)
 
 func isOldNice(str string) bool {
 	return (len(vowels.FindAllString(str, -1)) >= 3 &&
-		hasDoubleLetters(str) &&
+		util.HasLetterPair(str) &&
 		len(badStrings.FindAllString(str, -1)) <= 0)
 }
 
 func isNewNice(str string) bool {
 	return hasAdjacentPairs(str) && hasLetterSandwich(str)
-}
-
-func hasDoubleLetters(str string) bool {
-	ltrs := []rune(str)
-	max := len(str) - 1
-	for ix := 0; ix < max; ix += 1 {
-		if ltrs[ix] == ltrs[ix+1] {
-			return true
-		}
-	}
-	return false
 }
 
 func hasAdjacentPairs(str string) bool {
