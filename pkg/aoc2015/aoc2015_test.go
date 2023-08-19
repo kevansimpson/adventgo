@@ -43,3 +43,10 @@ func TestDay06Solutions(t *testing.T) {
 	assert.Equal(t, 543903, lightsLit, "lightsLit")
 	assert.Equal(t, 14687245, totalBrightness, "totalBrightness")
 }
+
+func TestDay07Solutions(t *testing.T) {
+	input := util.ReadLines("input07.txt")
+	signalWireA, overrideSignal := assembleCircuits(input)
+	assert.Equal(t, 46065, signalWireA, "signalWireA")
+	assert.Equal(t, 14134, overrideSignal, "overrideSignal")
+}
