@@ -12,7 +12,7 @@ var member void
 
 type Set map[util.Point]void
 
-func append(set Set, elem util.Point) {
+func addPointToSet(set Set, elem util.Point) {
 	set[elem] = member
 }
 
@@ -29,11 +29,11 @@ func roboSantaRoute(input string) int {
 
 func follow(set Set, directions string, start int, increment int) int {
 	location := util.ORIGIN
-	append(set, util.ORIGIN)
+	addPointToSet(set, util.ORIGIN)
 	dirs := []rune(directions)
 	for i := start; i < len(dirs); i += increment {
 		location = location.RuneStep(dirs[i])
-		append(set, location)
+		addPointToSet(set, location)
 	}
 	return len(set)
 }
