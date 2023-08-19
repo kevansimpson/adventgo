@@ -1,7 +1,12 @@
 package util
 
+import (
+	"strconv"
+	"strings"
+)
+
 type Point struct {
-	x, y int
+	X, Y int
 }
 
 type Point3D struct {
@@ -15,7 +20,7 @@ type BigPoint struct {
 var ORIGIN = Point{0, 0}
 
 func (pt Point) Move(dx int, dy int) Point {
-	return Point{pt.x + dx, pt.y + dy}
+	return Point{pt.X + dx, pt.Y + dy}
 }
 
 func (pt Point) RuneStep(dir rune) Point {
@@ -39,4 +44,20 @@ func (pt Point) Advance(dir string, distance int) Point {
 	default:
 		return pt
 	}
+}
+
+// factory functions
+
+func MakeBigPoint(str string) BigPoint {
+	xy := strings.Split(str, ",")
+	x, _ := strconv.ParseInt(xy[0], 10, 64)
+	y, _ := strconv.ParseInt(xy[1], 10, 64)
+	return BigPoint{x, y}
+}
+
+func MakePoint(str string) Point {
+	xy := strings.Split(str, ",")
+	x, _ := strconv.ParseInt(xy[0], 10, 32)
+	y, _ := strconv.ParseInt(xy[1], 10, 32)
+	return Point{int(x), int(y)}
 }
