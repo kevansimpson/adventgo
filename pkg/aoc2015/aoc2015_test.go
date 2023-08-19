@@ -64,3 +64,9 @@ func TestDay09Solutions(t *testing.T) {
 	assert.Equal(t, 207, shortestRoute, "shortestRoute")
 	assert.Equal(t, 804, longestRoute, "longestRoute")
 }
+
+func TestDay10Solutions(t *testing.T) {
+	fortyTimes, fiftyTimes := applyLookAndSay(LOOK_AND_SAY_10_2015, 40, 50)
+	assert.Equal(t, 492982, fortyTimes, "fortyTimes")
+	assert.Equal(t, 6989950, fiftyTimes, "fiftyTimes")
+}
