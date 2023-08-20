@@ -28,21 +28,21 @@ func calculateSantaRoutes(input []string) (int, int) {
 	return min, max
 }
 
-type jumpKey struct {
+type JumpKey struct {
 	departs string
 	arrives string
 }
 
-type santaSleigh struct {
+type SantaSleigh struct {
 	locations util.Set[string]
-	jumps     map[jumpKey]int
+	jumps     map[JumpKey]int
 	distances map[string]int
 }
 
-func buildSleigh(input []string) santaSleigh {
+func buildSleigh(input []string) SantaSleigh {
 	regex := regexp.MustCompile(`(.+)\sto\s(.+)\s=\s(\d+)`)
 	locations := make(util.Set[string])
-	jumps := make(map[jumpKey]int)
+	jumps := make(map[JumpKey]int)
 	distances := make(map[string]int)
 
 	for _, str := range input {
@@ -51,8 +51,8 @@ func buildSleigh(input []string) santaSleigh {
 		dist, _ := strconv.Atoi(m[3])
 		util.Add(locations, city1)
 		util.Add(locations, city2)
-		jumps[jumpKey{city1, city2}] = dist
-		jumps[jumpKey{city2, city1}] = dist
+		jumps[JumpKey{city1, city2}] = dist
+		jumps[JumpKey{city2, city1}] = dist
 	}
 
 	routes := util.Permutations(util.SetToSlice(locations))
@@ -60,13 +60,13 @@ func buildSleigh(input []string) santaSleigh {
 		distances[fmt.Sprintf("%s", r)] = calculateDistance(r, jumps)
 	}
 
-	return santaSleigh{locations, jumps, distances}
+	return SantaSleigh{locations, jumps, distances}
 }
 
-func calculateDistance(path []string, jumps map[jumpKey]int) int {
+func calculateDistance(path []string, jumps map[JumpKey]int) int {
 	dist, max := 0, len(path)-1
 	for ix := 0; ix < max; ix += 1 {
-		d, ok := jumps[jumpKey{path[ix], path[ix+1]}]
+		d, ok := jumps[JumpKey{path[ix], path[ix+1]}]
 		if ok {
 			dist += d
 		}
