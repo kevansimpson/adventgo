@@ -82,3 +82,10 @@ func TestDay12Solutions(t *testing.T) {
 	assert.Equal(t, 111754, sumDocumentNumbers(input), "sumDocumentNumbers")
 	assert.Equal(t, 65402, sumWithoutDoubleCountingRed(input), "sumWithoutDoubleCountingRed")
 }
+
+func TestDay13Solutions(t *testing.T) {
+	input := util.ReadLines("data/input13.txt")
+	happyWithoutMe, lessHappyWithMe := optimalHappinessWithMeOptional(input)
+	assert.Equal(t, 733, happyWithoutMe, "happyWithoutMe")
+	assert.Equal(t, 725, lessHappyWithMe, "lessHappyWithMe") // lolz
+}
