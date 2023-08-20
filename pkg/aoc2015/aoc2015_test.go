@@ -76,3 +76,9 @@ func TestDay11Solutions(t *testing.T) {
 	assert.Equal(t, "vzbxxyzz", firstPswd, "firstPswd")
 	assert.Equal(t, "vzcaabcc", secondPswd, "secondPswd")
 }
+
+func TestDay12Solutions(t *testing.T) {
+	input := util.ReadSingleLine("data/input12.txt")
+	assert.Equal(t, 111754, sumDocumentNumbers(input), "sumDocumentNumbers")
+	assert.Equal(t, 65402, sumWithoutDoubleCountingRed(input), "sumWithoutDoubleCountingRed")
+}
