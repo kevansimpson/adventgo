@@ -89,3 +89,10 @@ func TestDay13Solutions(t *testing.T) {
 	assert.Equal(t, 733, happyWithoutMe, "happyWithoutMe")
 	assert.Equal(t, 725, lessHappyWithMe, "lessHappyWithMe") // lolz
 }
+
+func TestDay14Solutions(t *testing.T) {
+	input := util.ReadLines("data/input14.txt")
+	distanceTraveled, pointsAwarded := hostReindeerOlympics(input)
+	assert.Equal(t, 2696, distanceTraveled, "distanceTraveled")
+	assert.Equal(t, 1084, pointsAwarded, "pointsAwarded")
+}
