@@ -5,7 +5,6 @@ package aoc2015
  */
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/kevansimpson/util"
@@ -13,12 +12,17 @@ import (
 
 type Day15 struct{}
 
+// Iteration 1: calling findHighestScore twice with different caloric requirements
 // === RUN   TestDay15Solutions
 // --- PASS: TestDay15Solutions (11.27s)
-func (d Day15) findHighestScore(input []string, caloricRequirement int) int {
-	fmt.Println()
+
+// Iteration 2: running through Recipe permutations once and grab both max scores at the same time
+// === RUN   TestDay15Solutions
+// --- PASS: TestDay15Solutions (5.70s)
+
+func (d Day15) findHighestScore(input []string, caloricRequirement int) (int, int) {
 	ingredientMap := d.readIngredients(input)
-	cookbook := Cookbook{0, ingredientMap}
+	cookbook := Cookbook{0, 0, ingredientMap}
 	var ilist []Ingredient
 	for _, i := range ingredientMap {
 		ilist = append(ilist, i)
@@ -26,12 +30,12 @@ func (d Day15) findHighestScore(input []string, caloricRequirement int) int {
 	recipe := Recipe{caloricRequirement, make(map[string]int)}
 
 	cookbook.buildAllRecipes(ilist, 0, recipe, 100)
-	return cookbook.highestScore
+	return cookbook.highestScore, cookbook.highestScoreWithCaloricReq
 }
 
 type Cookbook struct {
-	highestScore int
-	pages        map[string]Ingredient
+	highestScore, highestScoreWithCaloricReq int
+	pages                                    map[string]Ingredient
 }
 
 type Ingredient struct {
@@ -47,12 +51,12 @@ type Recipe struct {
 func (c *Cookbook) buildAllRecipes(ingredientList []Ingredient, ingredientIndex int, recipe Recipe, total int) {
 	if len(ingredientList) <= ingredientIndex {
 		if recipe.sumTeaspoons() == 100 {
-			if recipe.caloricRequirement <= 0 || c.caloricCount(recipe) == recipe.caloricRequirement {
-				score := c.score(recipe)
-				if score > c.highestScore {
-					c.highestScore = score
-					fmt.Print(".")
-				}
+			score := c.score(recipe)
+			if score > c.highestScore {
+				c.highestScore = score
+			}
+			if score > c.highestScoreWithCaloricReq && c.caloricCount(recipe) == recipe.caloricRequirement {
+				c.highestScoreWithCaloricReq = score
 			}
 		}
 

@@ -99,6 +99,7 @@ func TestDay14Solutions(t *testing.T) {
 
 func TestDay15Solutions(t *testing.T) {
 	input := util.ReadLines("data/input15.txt")
-	assert.Equal(t, 18965440, Day15{}.findHighestScore(input, -1), "findHighestScore(...)")
-	assert.Equal(t, 15862900, Day15{}.findHighestScore(input, 500), "findHighestScore(500)")
+	highestScore, highestScoreWithCaloricReq := Day15{}.findHighestScore(input, 500)
+	assert.Equal(t, 18965440, highestScore, "findHighestScore(...)")
+	assert.Equal(t, 15862900, highestScoreWithCaloricReq, "findHighestScore(500)")
 }
