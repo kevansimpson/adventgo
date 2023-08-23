@@ -13,8 +13,10 @@ import (
 	"github.com/kevansimpson/util"
 )
 
-func calculateSantaRoutes(input []string) (int, int) {
-	sleigh := buildSleigh(input)
+type Day09 struct{}
+
+func (d Day09) calculateSantaRoutes(input []string) (int, int) {
+	sleigh := d.buildSleigh(input)
 	min, max := math.MaxInt, math.MinInt
 	for _, v := range sleigh.distances {
 		if v < min {
@@ -39,7 +41,7 @@ type SantaSleigh struct {
 	distances map[string]int
 }
 
-func buildSleigh(input []string) SantaSleigh {
+func (d Day09) buildSleigh(input []string) SantaSleigh {
 	regex := regexp.MustCompile(`(.+)\sto\s(.+)\s=\s(\d+)`)
 	locations := make(util.Set[string])
 	jumps := make(map[JumpKey]int)
@@ -57,13 +59,13 @@ func buildSleigh(input []string) SantaSleigh {
 
 	routes := util.Permutations(util.SetToSlice(locations))
 	for _, r := range routes {
-		distances[fmt.Sprintf("%s", r)] = calculateDistance(r, jumps)
+		distances[fmt.Sprintf("%s", r)] = d.calculateDistance(r, jumps)
 	}
 
 	return SantaSleigh{locations, jumps, distances}
 }
 
-func calculateDistance(path []string, jumps map[JumpKey]int) int {
+func (d Day09) calculateDistance(path []string, jumps map[JumpKey]int) int {
 	dist, max := 0, len(path)-1
 	for ix := 0; ix < max; ix += 1 {
 		d, ok := jumps[JumpKey{path[ix], path[ix+1]}]

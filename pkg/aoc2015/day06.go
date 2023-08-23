@@ -1,5 +1,9 @@
 package aoc2015
 
+/**
+ * <a href="https://adventofcode.com/2015/day/6">Day 6</a>
+ */
+
 import (
 	"math"
 	"regexp"
@@ -7,16 +11,14 @@ import (
 	"github.com/kevansimpson/util"
 )
 
-/**
- * <a href="https://adventofcode.com/2015/day/6">Day 6</a>
- */
+type Day06 struct{}
 
-func followLightCommands(input []string) (int, int) {
-	cmds := parseCmds(input)
-	return flipLights(cmds, flip), flipLights(cmds, brighten)
+func (d Day06) followLightCommands(input []string) (int, int) {
+	cmds := d.parseCmds(input)
+	return d.flipLights(cmds, d.flip), d.flipLights(cmds, d.brighten)
 }
 
-func flipLights(cmds []LightCmd, fxn func(string, int) int) int {
+func (d Day06) flipLights(cmds []LightCmd, fxn func(string, int) int) int {
 	var grid [1000][1000]int
 	for i := range grid {
 		var row [1000]int
@@ -41,7 +43,7 @@ func flipLights(cmds []LightCmd, fxn func(string, int) int) int {
 	return sum
 }
 
-func flip(cmd string, light int) int {
+func (d Day06) flip(cmd string, light int) int {
 	switch cmd {
 	case "toggle":
 		if light == 0 {
@@ -58,7 +60,7 @@ func flip(cmd string, light int) int {
 	}
 }
 
-func brighten(cmd string, light int) int {
+func (d Day06) brighten(cmd string, light int) int {
 	switch cmd {
 	case "toggle":
 		return light + 2
@@ -82,7 +84,7 @@ type LightCmd struct {
 	end   util.Point
 }
 
-func parseCmds(input []string) []LightCmd {
+func (d Day06) parseCmds(input []string) []LightCmd {
 	regex := regexp.MustCompile(`(toggle|turn on|turn off) ([\d,]+) through ([\d,]+)`)
 	var cmds []LightCmd
 	for _, str := range input {

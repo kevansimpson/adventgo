@@ -11,28 +11,30 @@ import (
 	"github.com/kevansimpson/util"
 )
 
-func oldNiceStrings(input []string) int {
-	return util.CountMatches(input, isOldNice)
+type Day05 struct{}
+
+func (d Day05) oldNiceStrings(input []string) int {
+	return util.CountMatches(input, d.isOldNice)
 }
 
-func newNiceStrings(input []string) int {
-	return util.CountMatches(input, isNewNice)
+func (d Day05) newNiceStrings(input []string) int {
+	return util.CountMatches(input, d.isNewNice)
 }
 
 var vowels = regexp.MustCompile(`[aeiou]`)
 var badStrings = regexp.MustCompile(`(ab|cd|pq|xy)`)
 
-func isOldNice(str string) bool {
+func (d Day05) isOldNice(str string) bool {
 	return (len(vowels.FindAllString(str, -1)) >= 3 &&
 		util.HasLetterPair(str) &&
 		len(badStrings.FindAllString(str, -1)) <= 0)
 }
 
-func isNewNice(str string) bool {
-	return hasAdjacentPairs(str) && hasLetterSandwich(str)
+func (d Day05) isNewNice(str string) bool {
+	return d.hasAdjacentPairs(str) && d.hasLetterSandwich(str)
 }
 
-func hasAdjacentPairs(str string) bool {
+func (d Day05) hasAdjacentPairs(str string) bool {
 	max := len(str) - 2
 	for ix := 0; ix < max; ix += 1 {
 		if strings.Contains(str[ix+2:max+2], str[ix:ix+2]) {
@@ -42,7 +44,7 @@ func hasAdjacentPairs(str string) bool {
 	return false
 }
 
-func hasLetterSandwich(str string) bool {
+func (d Day05) hasLetterSandwich(str string) bool {
 	ltrs := []rune(str)
 	max := len(str) - 2
 	for ix := 0; ix < max; ix += 1 {

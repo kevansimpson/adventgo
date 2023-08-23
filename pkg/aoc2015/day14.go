@@ -9,14 +9,16 @@ import (
 	"strconv"
 )
 
-func hostReindeerOlympics(input []string) (int, int) {
-	reindeerMap := buildReindeerMap(input)
+type Day14 struct{}
+
+func (d Day14) hostReindeerOlympics(input []string) (int, int) {
+	reindeerMap := d.buildReindeerMap(input)
 	pointMap := make(map[string]int)
 	winningPoints, maxDistance := 0, 0
 
 	for sec := 1; sec < 2504; sec++ {
 		// goldMedal, winners := identifyGoldMedalReindeers(reindeerMap, sec)
-		dist, winners := identifyGoldMedalReindeers(reindeerMap, sec)
+		dist, winners := d.identifyGoldMedalReindeers(reindeerMap, sec)
 		for _, w := range winners {
 			pts, ok := pointMap[w]
 			if ok {
@@ -38,7 +40,7 @@ func hostReindeerOlympics(input []string) (int, int) {
 	return maxDistance, winningPoints
 }
 
-func identifyGoldMedalReindeers(reindeerMap map[string]Reindeer, seconds int) (int, []string) {
+func (d Day14) identifyGoldMedalReindeers(reindeerMap map[string]Reindeer, seconds int) (int, []string) {
 	snapshot := make(map[int][]string)
 
 	for name, r := range reindeerMap {
@@ -81,7 +83,7 @@ func (r Reindeer) totalTime() int {
 	return r.goTime + r.restTime
 }
 
-func buildReindeerMap(input []string) map[string]Reindeer {
+func (d Day14) buildReindeerMap(input []string) map[string]Reindeer {
 	regex := regexp.MustCompile(`(.+) can.+ (\d+) km.+ (\d+) seconds.* (\d+) .+`)
 	reindeerMap := make(map[string]Reindeer)
 	for _, str := range input {

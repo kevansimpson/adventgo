@@ -4,18 +4,20 @@ package aoc2015
  * <a href="https://adventofcode.com/2015/day/8">Day 8</a>
  */
 
-func encodeSantasList(input []string) (int, int) {
+type Day08 struct{}
+
+func (d Day08) encodeSantasList(input []string) (int, int) {
 	oldEncoding, newEncoding := 0, 0
 	for _, str := range input {
 		dir := str[1:(len(str) - 1)]
-		oldEncoding += 2 + computeInMemory(dir)
-		newEncoding += 4 + computeEncrypted(dir)
+		oldEncoding += 2 + d.computeInMemory(dir)
+		newEncoding += 4 + d.computeEncrypted(dir)
 	}
 
 	return oldEncoding, newEncoding
 }
 
-func computeInMemory(input string) int {
+func (d Day08) computeInMemory(input string) int {
 	count, flag := 0, 0
 	for _, ch := range []rune(input) {
 		switch ch {
@@ -53,7 +55,7 @@ func computeInMemory(input string) int {
 	return count
 }
 
-func computeEncrypted(input string) int {
+func (d Day08) computeEncrypted(input string) int {
 	count, flag := 0, 0
 	for _, ch := range []rune(input) {
 		switch ch {

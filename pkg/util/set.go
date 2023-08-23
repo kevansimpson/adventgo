@@ -12,7 +12,7 @@ func Add[T comparable](set Set[T], elem T) {
 
 func SetToSlice[T comparable](set Set[T]) []T {
 	var list []T
-	for key, _ := range set {
+	for key := range set {
 		list = append(list, key)
 	}
 	return list

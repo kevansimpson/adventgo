@@ -15,24 +15,26 @@ package aoc2015
 
 const LOOK_AND_SAY_10_2015 = "1321131112"
 
-func applyLookAndSay(input string, firstRun int, secondRun int) (int, int) {
+type Day10 struct{}
+
+func (d Day10) applyLookAndSay(input string, firstRun int, secondRun int) (int, int) {
 	said := []byte(input)
 	for ix := 0; ix < firstRun; ix += 1 {
-		said = lookSay(said)
+		said = d.lookSay(said)
 	}
 
 	firstLength := len(said)
 	for ix := firstRun; ix < secondRun; ix++ {
-		said = lookSay(said)
+		said = d.lookSay(said)
 	}
 
 	return firstLength, len(said)
 }
 
-func lookSay(said []byte) []byte {
+func (d Day10) lookSay(said []byte) []byte {
 	next := []byte{}
 	for jx := 0; jx < len(said); {
-		runEndsAt := indexToEndRun(said, jx)
+		runEndsAt := d.indexToEndRun(said, jx)
 		runSize := byte((runEndsAt + 1) - jx)
 		next = append(next, runSize+byte(48)) //shens ??
 		next = append(next, said[jx])
@@ -42,7 +44,7 @@ func lookSay(said []byte) []byte {
 	return next
 }
 
-func indexToEndRun(str []byte, from int) int {
+func (d Day10) indexToEndRun(str []byte, from int) int {
 	for ix := from + 1; ix < len(str); ix++ {
 		if str[ix] != str[from] {
 			return ix - 1

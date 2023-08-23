@@ -6,11 +6,13 @@ package aoc2015
 
 import "strings"
 
-func whatFloorSanta(input string) int {
+type Day01 struct{}
+
+func (d Day01) whatFloorSanta(input string) int {
 	return len(strings.ReplaceAll(input, ")", "")) - len(strings.ReplaceAll(input, "(", ""))
 }
 
-func santaEntersBasement(input string) int {
+func (d Day01) santaEntersBasement(input string) int {
 	var floor = 0
 	var position = 0
 	for _, ch := range []rune(input) {

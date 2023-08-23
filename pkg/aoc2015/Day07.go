@@ -10,16 +10,18 @@ import (
 	"strings"
 )
 
-func assembleCircuits(input []string) (int, int) {
-	circuits := wireCircuits(input)
-	a := calculate("a", make(map[string]int), circuits)
+type Day07 struct{}
 
-	return a, calculate("a", map[string]int{"b": a}, circuits)
+func (d Day07) assembleCircuits(input []string) (int, int) {
+	circuits := d.wireCircuits(input)
+	a := circuits.calculate("a", make(map[string]int))
+
+	return a, circuits.calculate("a", map[string]int{"b": a})
 }
 
 type CircuitMap map[string][]string
 
-func calculate(wire string, allWires map[string]int, circuits CircuitMap) int {
+func (circuits CircuitMap) calculate(wire string, allWires map[string]int) int {
 	w, hasWire := allWires[wire]
 	if hasWire {
 		return w
@@ -30,17 +32,17 @@ func calculate(wire string, allWires map[string]int, circuits CircuitMap) int {
 			case 1:
 				sig, nope := strconv.ParseInt(logic[0], 10, 32)
 				if nope != nil {
-					return calculate(logic[0], allWires, circuits)
+					return circuits.calculate(logic[0], allWires)
 				} else {
 					return int(sig)
 				}
 			case 2:
 				if "NOT" == logic[0] {
-					allWires[wire] = 65535 - calculate(logic[1], allWires, circuits)
+					allWires[wire] = 65535 - circuits.calculate(logic[1], allWires)
 					// fmt.Printf("NOT logic @ %s = %d\n", wire, allWires[wire])
 				}
 			case 3:
-				allWires[wire] = circuitOperation(logic, allWires, circuits)
+				allWires[wire] = circuits.circuitOperation(logic, allWires)
 			}
 		} else {
 			sig, _ := strconv.ParseInt(wire, 10, 32)
@@ -52,8 +54,8 @@ func calculate(wire string, allWires map[string]int, circuits CircuitMap) int {
 	}
 }
 
-func circuitOperation(logic []string, allWires map[string]int, circuits CircuitMap) int {
-	zero := calculate(logic[0], allWires, circuits)
+func (circuits CircuitMap) circuitOperation(logic []string, allWires map[string]int) int {
+	zero := circuits.calculate(logic[0], allWires)
 	switch logic[1] {
 	case "AND":
 		bit, _ := strconv.ParseInt(logic[0], 10, 32)
@@ -61,19 +63,19 @@ func circuitOperation(logic []string, allWires map[string]int, circuits CircuitM
 		if nope == nil {
 			return zero & int(bit)
 		} else {
-			return zero & calculate(logic[2], allWires, circuits)
+			return zero & circuits.calculate(logic[2], allWires)
 		}
 	case "OR":
-		return zero | calculate(logic[2], allWires, circuits)
+		return zero | circuits.calculate(logic[2], allWires)
 	case "LSHIFT":
-		return zero << calculate(logic[2], allWires, circuits)
+		return zero << circuits.calculate(logic[2], allWires)
 	case "RSHIFT":
-		return zero >> calculate(logic[2], allWires, circuits)
+		return zero >> circuits.calculate(logic[2], allWires)
 	}
 	return -1
 }
 
-func wireCircuits(input []string) CircuitMap {
+func (d Day07) wireCircuits(input []string) CircuitMap {
 	regex := regexp.MustCompile(`(.+)\s->\s([a-z]+)`)
 	circuits := make(CircuitMap, len(input))
 	for _, str := range input {

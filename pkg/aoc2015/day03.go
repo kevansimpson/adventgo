@@ -6,18 +6,20 @@ package aoc2015
 
 import "github.com/kevansimpson/util"
 
-func santaRoute(input string) int {
+type Day03 struct{}
+
+func (d Day03) santaRoute(input string) int {
 	set := make(util.Set[util.Point])
-	return follow(set, input, 0, 1)
+	return d.follow(set, input, 0, 1)
 }
 
-func roboSantaRoute(input string) int {
+func (d Day03) roboSantaRoute(input string) int {
 	set := make(util.Set[util.Point])
-	follow(set, input, 0, 2)
-	return follow(set, input, 1, 2)
+	d.follow(set, input, 0, 2)
+	return d.follow(set, input, 1, 2)
 }
 
-func follow(set util.Set[util.Point], directions string, start int, increment int) int {
+func (d Day03) follow(set util.Set[util.Point], directions string, start int, increment int) int {
 	location := util.ORIGIN
 	util.Add(set, util.ORIGIN)
 	dirs := []rune(directions)

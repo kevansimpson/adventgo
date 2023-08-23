@@ -12,7 +12,9 @@ import (
 	"github.com/kevansimpson/util"
 )
 
-func sumDocumentNumbers(input string) int {
+type Day12 struct{}
+
+func (d Day12) sumDocumentNumbers(input string) int {
 	sum := 0
 	for _, num := range util.ExtractInts(input) {
 		sum += num
@@ -20,24 +22,24 @@ func sumDocumentNumbers(input string) int {
 	return sum
 }
 
-func sumWithoutDoubleCountingRed(input string) int {
+func (d Day12) sumWithoutDoubleCountingRed(input string) int {
 	var doc map[string]interface{}
 	err := json.Unmarshal([]byte(input), &doc)
 	if err != nil {
 		return -1
 	}
 
-	return sumJsonObj(doc)
+	return d.sumJsonObj(doc)
 }
 
-func sumJsonObj(doc map[string]interface{}) int {
+func (d Day12) sumJsonObj(doc map[string]interface{}) int {
 	sum := 0
 	for _, element := range doc {
 		switch json := element.(type) {
 		case map[string]interface{}:
-			sum += sumJsonObj(json)
+			sum += d.sumJsonObj(json)
 		case []interface{}:
-			sum += sumJsonArray(json)
+			sum += d.sumJsonArray(json)
 		case string:
 			if json == "red" {
 				return 0
@@ -51,14 +53,14 @@ func sumJsonObj(doc map[string]interface{}) int {
 	return sum
 }
 
-func sumJsonArray(array []interface{}) int {
+func (d Day12) sumJsonArray(array []interface{}) int {
 	sum := 0
 	for _, element := range array {
 		switch json := element.(type) {
 		case map[string]interface{}:
-			sum += sumJsonObj(json)
+			sum += d.sumJsonObj(json)
 		case []interface{}:
-			sum += sumJsonArray(json)
+			sum += d.sumJsonArray(json)
 		case string:
 			// do nothing
 		default:
