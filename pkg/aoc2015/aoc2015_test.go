@@ -96,3 +96,9 @@ func TestDay14Solutions(t *testing.T) {
 	assert.Equal(t, 2696, distanceTraveled, "distanceTraveled")
 	assert.Equal(t, 1084, pointsAwarded, "pointsAwarded")
 }
+
+func TestDay15Solutions(t *testing.T) {
+	input := util.ReadLines("data/input15.txt")
+	assert.Equal(t, 18965440, Day15{}.findHighestScore(input, -1), "findHighestScore(...)")
+	assert.Equal(t, 15862900, Day15{}.findHighestScore(input, 500), "findHighestScore(500)")
+}
