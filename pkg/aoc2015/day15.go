@@ -100,7 +100,6 @@ func (c Cookbook) score(r Recipe) int {
 	}
 
 	if cap <= 0 || d <= 0 || f <= 0 || t <= 0 {
-		// fmt.Printf("- %v\n", r)
 		return 0
 	}
 	score := cap * d * f * t
