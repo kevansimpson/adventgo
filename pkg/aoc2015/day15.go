@@ -22,11 +22,11 @@ type Day15 struct{}
 
 func (d Day15) findHighestScore(input []string, caloricRequirement int) (int, int) {
 	ingredientMap := d.readIngredients(input)
-	cookbook := Cookbook{0, 0, ingredientMap}
 	var ilist []Ingredient
 	for _, i := range ingredientMap {
 		ilist = append(ilist, i)
 	}
+	cookbook := Cookbook{0, 0, len(ilist), ingredientMap}
 	recipe := Recipe{caloricRequirement, make(map[string]int)}
 
 	cookbook.buildAllRecipes(ilist, 0, recipe, 100)
@@ -35,6 +35,7 @@ func (d Day15) findHighestScore(input []string, caloricRequirement int) (int, in
 
 type Cookbook struct {
 	highestScore, highestScoreWithCaloricReq int
+	ingredientCount                          int
 	pages                                    map[string]Ingredient
 }
 
@@ -49,7 +50,7 @@ type Recipe struct {
 }
 
 func (c *Cookbook) buildAllRecipes(ingredientList []Ingredient, ingredientIndex int, recipe Recipe, total int) {
-	if len(ingredientList) <= ingredientIndex {
+	if c.ingredientCount <= ingredientIndex {
 		if recipe.sumTeaspoons() == 100 {
 			score := c.score(recipe)
 			if score > c.highestScore {
@@ -82,6 +83,9 @@ func (c Cookbook) score(r Recipe) int {
 	cap, d, f, t := 0, 0, 0, 0
 	for name, ingredient := range c.pages {
 		ts, _ := r.ingredients[name]
+		if ts < 0 {
+			return 0
+		}
 		cap += ts * ingredient.capacity
 		d += ts * ingredient.durability
 		f += ts * ingredient.flavor
