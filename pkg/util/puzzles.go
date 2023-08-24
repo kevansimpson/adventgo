@@ -56,3 +56,14 @@ func ReadLines(filename string) []string {
 
 	return lines
 }
+
+func ReadNumbers(filename string) []int {
+	lines := ReadLines(filename)
+	var nums []int
+	for _, str := range lines {
+		n, _ := strconv.Atoi(str)
+		nums = append(nums, n)
+	}
+
+	return nums
+}

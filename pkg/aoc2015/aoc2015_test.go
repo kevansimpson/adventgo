@@ -110,3 +110,10 @@ func TestDay16Solutions(t *testing.T) {
 	assert.Equal(t, 40, giftSue, "giftSue")
 	assert.Equal(t, 241, realSue, "realSue")
 }
+
+func TestDay17Solutions(t *testing.T) {
+	input := util.ReadNumbers("data/input17.txt")
+	totalPermutations, totalWith150Litres := Day17{}.transferEggnog(input)
+	assert.Equal(t, 1304, totalPermutations, "totalPermutations")
+	assert.Equal(t, 18, totalWith150Litres, "totalWith150Litres")
+}
