@@ -117,3 +117,10 @@ func TestDay17Solutions(t *testing.T) {
 	assert.Equal(t, 1304, totalPermutations, "totalPermutations")
 	assert.Equal(t, 18, totalWith150Litres, "totalWith150Litres")
 }
+
+func TestDay18Solutions(t *testing.T) {
+	input := util.ReadLines("data/input18.txt")
+	totalLights, totalWithBrokenCorners := Day18{}.totalLights(input)
+	assert.Equal(t, 821, totalLights, "totalLights")
+	assert.Equal(t, 886, totalWithBrokenCorners, "totalWithBrokenCorners")
+}
