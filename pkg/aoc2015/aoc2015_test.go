@@ -103,3 +103,10 @@ func TestDay15Solutions(t *testing.T) {
 	assert.Equal(t, 18965440, highestScore, "findHighestScore(...)")
 	assert.Equal(t, 15862900, highestScoreWithCaloricReq, "findHighestScore(500)")
 }
+
+func TestDay16Solutions(t *testing.T) {
+	input := util.ReadLines("data/input16.txt")
+	giftSue, realSue := Day16{}.identifyAuntSue(input)
+	assert.Equal(t, 40, giftSue, "giftSue")
+	assert.Equal(t, 241, realSue, "realSue")
+}
