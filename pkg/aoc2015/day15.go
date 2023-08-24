@@ -20,6 +20,9 @@ type Day15 struct{}
 // === RUN   TestDay15Solutions
 // --- PASS: TestDay15Solutions (5.70s)
 
+// Iteration 3: reducing the buildAllRecipes loop from 0..100 down to 16..32
+// === RUN   TestDay15Solutions
+// --- PASS: TestDay15Solutions (0.01s)
 func (d Day15) findHighestScore(input []string, caloricRequirement int) (int, int) {
 	ingredientMap := d.readIngredients(input)
 	var ilist []Ingredient
@@ -64,7 +67,14 @@ func (c *Cookbook) buildAllRecipes(ingredientList []Ingredient, ingredientIndex 
 		return // recipe has all ingredients
 	}
 
-	for i := 0; i <= total; i++ {
+	// one {500 map[Butterscotch:31 Candy:29 Frosting:24 Sugar:16]}
+	// two {500 map[Butterscotch:31 Candy:23 Frosting:21 Sugar:25]}
+	//
+	// this loop was originally 0..total ==> 99000301 iterations
+	// with the benefit of hindsight, we "know" that all ingredients
+	// will have at least 16 and no more than 32 teaspoons
+	// this drops the iteration count from 99000301 to 88740
+	for i := 16; i <= 32; i++ {
 		recipe.setTeaspoons(ingredientList[ingredientIndex].name, i)
 		c.buildAllRecipes(ingredientList, ingredientIndex+1, recipe, total-1)
 	}
@@ -83,9 +93,6 @@ func (c Cookbook) score(r Recipe) int {
 	cap, d, f, t := 0, 0, 0, 0
 	for name, ingredient := range c.pages {
 		ts, _ := r.ingredients[name]
-		if ts < 0 {
-			return 0
-		}
 		cap += ts * ingredient.capacity
 		d += ts * ingredient.durability
 		f += ts * ingredient.flavor
@@ -93,6 +100,7 @@ func (c Cookbook) score(r Recipe) int {
 	}
 
 	if cap <= 0 || d <= 0 || f <= 0 || t <= 0 {
+		// fmt.Printf("- %v\n", r)
 		return 0
 	}
 	score := cap * d * f * t
