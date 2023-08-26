@@ -131,3 +131,9 @@ func TestDay19Solutions(t *testing.T) {
 	assert.Equal(t, 509, distinctMolecules, "distinctMolecules")
 	assert.Equal(t, 195, fewestSteps, "fewestSteps")
 }
+
+func TestDay20Solutions(t *testing.T) {
+	house1, house2 := Day20{}.lowestHouseNumbers(34000000)
+	assert.Equal(t, 786240, house1, "house1")
+	assert.Equal(t, 831600, house2, "house2")
+}
