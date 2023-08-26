@@ -124,3 +124,10 @@ func TestDay18Solutions(t *testing.T) {
 	assert.Equal(t, 821, totalLights, "totalLights")
 	assert.Equal(t, 886, totalWithBrokenCorners, "totalWithBrokenCorners")
 }
+
+func TestDay19Solutions(t *testing.T) {
+	input := util.ReadLines("data/input19.txt")
+	distinctMolecules, fewestSteps := Day19{}.createMolecules(input)
+	assert.Equal(t, 509, distinctMolecules, "distinctMolecules")
+	assert.Equal(t, 195, fewestSteps, "fewestSteps")
+}
