@@ -137,3 +137,9 @@ func TestDay20Solutions(t *testing.T) {
 	assert.Equal(t, 786240, house1, "house1")
 	assert.Equal(t, 831600, house2, "house2")
 }
+
+func TestDay21Solutions(t *testing.T) {
+	bestOutfitCost, worstOutfitCost := Day21{}.fightBosses(Boss{109, 8, 2})
+	assert.Equal(t, 111, bestOutfitCost, "bestOutfitCost")
+	assert.Equal(t, 188, worstOutfitCost, "worstOutfitCost")
+}
