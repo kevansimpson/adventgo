@@ -149,3 +149,9 @@ func TestDay22Solutions(t *testing.T) {
 	assert.Equal(t, 1824, leastMana, "leastMana")
 	assert.Equal(t, 1937, leastManaHard, "leastManaHard")
 }
+func TestDay23Solutions(t *testing.T) {
+	input := util.ReadLines("data/input23.txt")
+	startsWith0, startsWith1 := Day23{}.followComputerInstructions(input)
+	assert.Equal(t, 307, startsWith0, "startsWith0")
+	assert.Equal(t, 160, startsWith1, "startsWith1")
+}
