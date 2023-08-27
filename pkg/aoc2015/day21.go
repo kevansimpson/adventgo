@@ -13,7 +13,7 @@ import (
 
 type Day21 struct{}
 
-type Boss struct {
+type Boss struct { // also used in Day22
 	hitPoints, damage, armor int
 }
 

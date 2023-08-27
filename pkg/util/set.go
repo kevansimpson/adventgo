@@ -17,7 +17,7 @@ func AddAll[T comparable](set Set[T], elem []T) {
 }
 
 func AddSet[T comparable](set Set[T], elem Set[T]) {
-	for e, _ := range elem {
+	for e := range elem {
 		Add(set, e)
 	}
 }

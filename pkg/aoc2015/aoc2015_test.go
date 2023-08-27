@@ -143,3 +143,9 @@ func TestDay21Solutions(t *testing.T) {
 	assert.Equal(t, 111, bestOutfitCost, "bestOutfitCost")
 	assert.Equal(t, 188, worstOutfitCost, "worstOutfitCost")
 }
+
+func TestDay22Solutions(t *testing.T) {
+	leastMana, leastManaHard := Day22{}.wizardsFightBoss(Boss{71, 10, 0})
+	assert.Equal(t, 1824, leastMana, "leastMana")
+	assert.Equal(t, 1937, leastManaHard, "leastManaHard")
+}
