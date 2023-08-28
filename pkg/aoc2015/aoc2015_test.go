@@ -162,3 +162,10 @@ func TestDay24Solutions(t *testing.T) {
 	assert.Equal(t, 11846773891, threeCompartments, "threeCompartments")
 	assert.Equal(t, 80393059, fourCompartments, "fourCompartments")
 }
+
+func TestDay25Solutions(t *testing.T) {
+	nextCode := Day25{}.nextCode(20151125)
+	assert.Equal(t, 31916031, nextCode, "nextCode")
+	machineCode := Day25{}.readMachineConsole(20151125, 2978, 3083)
+	assert.Equal(t, 2650453, machineCode, "machineCode")
+}
