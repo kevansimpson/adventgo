@@ -46,6 +46,14 @@ func (pt Point) Advance(dir string, distance int) Point {
 	}
 }
 
+func (pt Point) ManhattanDistance(dest Point) int {
+	return AbsInt(dest.X-pt.X) + AbsInt(dest.Y-pt.Y)
+}
+
+func (pt Point) ManhattanDistanceOrigin() int {
+	return AbsInt(pt.X) + AbsInt(pt.Y)
+}
+
 // factory functions
 
 func MakeBigPoint(str string) BigPoint {

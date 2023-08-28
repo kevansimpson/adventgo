@@ -7,7 +7,7 @@ To run tests for a single year of Advent solutions:
 ```
 go test -v ./pkg/aoc<YYYY>
 ```
-where `<YYYY>` is either "2015" or "2017".
+where `<YYYY>` is in \[2015,2016,2017\].
 
 Some solutions abbreviate the solution path by default. To enable full solutions,
 pass a boolean argument of `-full=true`:
@@ -22,6 +22,9 @@ find . -name go.mod -execdir go test ./... \;
 
 ## Comparisons
 As always [Advent of Code](https://adventofcode.com/) is an opportunity for me to discover new languages.
+
+Solution comparisons by year and language:
+[2015](#2015) - [2016](#2016)
 
 ### 2015
 
@@ -52,5 +55,13 @@ As always [Advent of Code](https://adventofcode.com/) is an opportunity for me t
 | [Day23](https://adventofcode.com/2015/day/23) | [Day23](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2015/Day23.java) | [Day23](https://github.com/kevansimpson/advent-of-kotlin/blob/main/src/main/kotlin/org/base/advent/k2015/Day23.kt) | n/a                                                                           | [Day23](https://github.com/kevansimpson/advent-of-node/blob/master/src/2015/day23.ts) | [Day23](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2015/day23.go) |
 | [Day24](https://adventofcode.com/2015/day/24) | [Day24](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2015/Day24.java) | [Day24](https://github.com/kevansimpson/advent-of-kotlin/blob/main/src/main/kotlin/org/base/advent/k2015/Day24.kt) | n/a                                                                           | [Day24](https://github.com/kevansimpson/advent-of-node/blob/master/src/2015/day24.ts) | [Day24](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2015/day24.go) |                                                                              |
 | [Day25](https://adventofcode.com/2015/day/25) | [Day25](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2015/Day25.java) | n/a                                                                                                                | n/a                                                                           | n/a                                                                                   | [Day25](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2015/day25.go) |
+
+[Back to top](#comparisons)
+
+### 2016
+
+| Description                                   | Java                                                                                                                | Golang                                                                           |
+|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| [Day01](https://adventofcode.com/2015/day/1)  | [Day01](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day01.java) | [Day01](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day01.go) |
 
 [Back to top](#comparisons)

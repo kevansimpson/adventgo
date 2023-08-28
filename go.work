@@ -3,6 +3,7 @@ go 1.21.0
 use (
 	.
 	./pkg/aoc2015
+	./pkg/aoc2016
 	./pkg/aoc2017
 	./pkg/util
 )
