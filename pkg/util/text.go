@@ -10,14 +10,14 @@ import (
 	"strings"
 )
 
-var numberRegex = regexp.MustCompile(`[-]?\d*`)
+var numberRegex = regexp.MustCompile(`[-]?\d+`)
 
 // Extracts all integers and returns them in a slice.
 func ExtractInts(str string) []int {
 	m := numberRegex.FindAllString(str, -1)
 	var num []int
 	for _, s := range m {
-		i, _ := strconv.ParseInt(s, 10, 32)
+		i, _ := strconv.Atoi(s)
 		num = append(num, int(i))
 	}
 	return num
@@ -56,4 +56,13 @@ func NextHash(input string, prefix string, start int) (string, int) {
 		}
 	}
 	return input, -1
+}
+
+func ReverseString(str string) string {
+	rns := []rune(str)
+	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
+		rns[i], rns[j] = rns[j], rns[i]
+	}
+
+	return string(rns)
 }
