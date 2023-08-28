@@ -155,3 +155,10 @@ func TestDay23Solutions(t *testing.T) {
 	assert.Equal(t, 307, startsWith0, "startsWith0")
 	assert.Equal(t, 160, startsWith1, "startsWith1")
 }
+
+func TestDay24Solutions(t *testing.T) {
+	input := util.ReadNumbers("data/input24.txt")
+	threeCompartments, fourCompartments := Day24{}.findSmallestContainers(input, 3, 4)
+	assert.Equal(t, 11846773891, threeCompartments, "threeCompartments")
+	assert.Equal(t, 80393059, fourCompartments, "fourCompartments")
+}
