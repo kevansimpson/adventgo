@@ -66,3 +66,20 @@ func ReverseString(str string) string {
 
 	return string(rns)
 }
+
+const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+// Rotates letters through the alphabet shift number of times
+func ShiftText(str string, shift int) string {
+	next := make([]rune, len(str))
+	for i, ch := range str {
+		ltr := strings.IndexRune(alphabet, ch)
+		if ltr < 0 {
+			next[i] = ch
+		} else {
+			ix := (ltr + shift) % 26
+			next[i] = rune(alphabet[ix]) // ??
+		}
+	}
+	return string(next)
+}
