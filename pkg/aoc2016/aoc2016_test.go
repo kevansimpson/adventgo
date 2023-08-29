@@ -20,3 +20,10 @@ func TestDay02Solutions(t *testing.T) {
 	assert.Equal(t, "76792", squareCode, "squareCode")
 	assert.Equal(t, "A7AC3", diamondCode, "diamondCode")
 }
+
+func TestDay03Solutions(t *testing.T) {
+	input := util.ReadLines("data/input03.txt")
+	pythagorean, byColumn := Day03{}.countValidTriangles(input)
+	assert.Equal(t, 982, pythagorean, "pythagorean")
+	assert.Equal(t, 1826, byColumn, "byColumn")
+}
