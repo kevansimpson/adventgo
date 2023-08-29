@@ -27,3 +27,12 @@ func TestDay03Solutions(t *testing.T) {
 	assert.Equal(t, 982, pythagorean, "pythagorean")
 	assert.Equal(t, 1826, byColumn, "byColumn")
 }
+
+func TestDay04Solutions(t *testing.T) {
+	input := util.ReadLines("data/input04.txt")
+	sumRealSectors, northPoleSector := Day04{}.identifyRealRooms(input)
+	// assert.Equal(t, 1514, sumRealSectors, "sumRealSectors")
+	// assert.Equal(t, 501, northPoleSector, "northPoleSector")
+	assert.Equal(t, 137896, sumRealSectors, "sumRealSectors")
+	assert.Equal(t, 501, northPoleSector, "northPoleSector")
+}
