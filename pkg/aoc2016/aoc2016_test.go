@@ -13,3 +13,10 @@ func TestDay01Solutions(t *testing.T) {
 	assert.Equal(t, 288, hqDist, "hqDist")
 	assert.Equal(t, 111, alreadyVisited, "alreadyVisited")
 }
+
+func TestDay02Solutions(t *testing.T) {
+	input := util.ReadLines("data/input02.txt")
+	squareCode, diamondCode := Day02{}.enterBathroomCode(input)
+	assert.Equal(t, "76792", squareCode, "squareCode")
+	assert.Equal(t, "A7AC3", diamondCode, "diamondCode")
+}
