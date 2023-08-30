@@ -1,14 +1,22 @@
 package util
 
 import (
-	"crypto/md5"
-	"fmt"
-	"io"
-	"math"
 	"regexp"
 	"strconv"
 	"strings"
 )
+
+// Converts rows of strings to columns; assumes all rows are same length.
+func Columns(rows []string) []string {
+	cols := make([]string, len(rows[0]))
+	for _, row := range rows {
+		for x, r := range row {
+			cols[x] = cols[x] + string(r)
+		}
+	}
+
+	return cols
+}
 
 var numberRegex = regexp.MustCompile(`[-]?\d+`)
 
@@ -38,24 +46,6 @@ func FindLetterPairIndex(str string) int {
 // Returns true if given string contains at least one letter that appears twice in a row.
 func HasLetterPair(str string) bool {
 	return FindLetterPairIndex(str) >= 0
-}
-
-// Generates MD5 hash in hexidecimal from given string
-func GenerateMD5inHex(str string) string {
-	h := md5.New()
-	io.WriteString(h, str)
-	return fmt.Sprintf("%x", h.Sum(nil))
-}
-
-// Finds the next MD5 hash in hexidecimal with the given prefix
-func NextHash(input string, prefix string, start int) (string, int) {
-	for i := start; start <= math.MaxInt; i += 1 {
-		next := GenerateMD5inHex(input + fmt.Sprintf("%d", i))
-		if strings.HasPrefix(next, prefix) {
-			return next, i
-		}
-	}
-	return input, -1
 }
 
 func ReverseString(str string) string {

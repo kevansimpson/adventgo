@@ -40,3 +40,10 @@ func TestDay05Solutions(t *testing.T) {
 	assert.Equal(t, "1a3099aa", firstPswd, "firstPswd")
 	assert.Equal(t, "694190cd", secondPswd, "secondPswd")
 }
+
+func TestDay06Solutions(t *testing.T) {
+	input := util.ReadLines("data/input06.txt")
+	correctedVersion, originalMessage := Day06{}.readRepetitionCode(input)
+	assert.Equal(t, "umcvzsmw", correctedVersion, "correctedVersion")
+	assert.Equal(t, "rwqoacfz", originalMessage, "originalMessage")
+}
