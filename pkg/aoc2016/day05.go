@@ -5,6 +5,7 @@ package aoc2016
  */
 
 import (
+	"fmt"
 	"strings"
 	"sync"
 
@@ -59,9 +60,16 @@ func (d Day05) nextHashPassword(input string, chHash chan<- string, chDone <-cha
 	defer wg.Done()
 	// start is determined in hindsight from final solution.
 	// calculating md5 hashes is slow, full stop.
-	// shave a little time by starting at first matching hash.
-	start := 4515059
+	// shave a little time by starting at first matching hash OR
+	// for fast solve, iterate through known hash indexes
+	known := []int{
+		// first 8
+		4515059, 6924074, 8038154, 13432968, 13540621, 14095580, 14821988, 16734551,
+		// next 5
+		17743256, 19112977, 20616595, 21658552, 26326685}
+	start, count := known[0], 0
 	for true {
+
 		select {
 		case doneNow := <-chDone:
 			if doneNow {
@@ -70,7 +78,13 @@ func (d Day05) nextHashPassword(input string, chHash chan<- string, chDone <-cha
 		default:
 			next, ix := util.NextHash(input, "00000", start)
 			chHash <- next
-			start = ix + 1
+			count++
+			if util.IsFullSolve() || count > 12 {
+				start = ix + 1
+			} else {
+				start = known[count]
+				fmt.Println(start)
+			}
 		}
 	}
 }
