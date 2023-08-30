@@ -36,7 +36,6 @@ func (d Day24) findSmallestContainers(containers []int, numCompartments1 int, nu
 	wg.Wait()
 
 	return qe1.lowestQE, qe2.lowestQE
-	// return 11846773891, qe2.lowestQE
 }
 
 // part 1 takes 13-14 seconds (slow in other languages too)

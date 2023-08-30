@@ -31,8 +31,12 @@ func TestDay03Solutions(t *testing.T) {
 func TestDay04Solutions(t *testing.T) {
 	input := util.ReadLines("data/input04.txt")
 	sumRealSectors, northPoleSector := Day04{}.identifyRealRooms(input)
-	// assert.Equal(t, 1514, sumRealSectors, "sumRealSectors")
-	// assert.Equal(t, 501, northPoleSector, "northPoleSector")
 	assert.Equal(t, 137896, sumRealSectors, "sumRealSectors")
 	assert.Equal(t, 501, northPoleSector, "northPoleSector")
+}
+
+func TestDay05Solutions(t *testing.T) {
+	firstPswd, secondPswd := Day05{}.decodeDoorPassword("uqwqemis")
+	assert.Equal(t, "1a3099aa", firstPswd, "firstPswd")
+	assert.Equal(t, "694190cd", secondPswd, "secondPswd")
 }
