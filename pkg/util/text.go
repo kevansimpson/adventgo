@@ -32,20 +32,41 @@ func ExtractInts(str string) []int {
 }
 
 // Returns the index if at least one letter that appears twice in a row in the given string, else returns -1.
-func FindLetterPairIndex(str string) int {
+func FindLetterPair(str string) (int, bool) {
 	ltrs := []rune(str)
 	max := len(str) - 1
 	for ix := 0; ix < max; ix += 1 {
 		if ltrs[ix] == ltrs[ix+1] {
-			return ix
+			return ix, true
 		}
 	}
-	return -1
+	return -1, false
+}
+
+// Returns (A,B,true) if given string contains ABA, else (_,_,false).
+func FindLetterSandwich(str string) (rune, rune, bool) {
+	ltrs := []rune(str)
+	max := len(str) - 2
+	for ix := 0; ix < max; ix += 1 {
+		if ltrs[ix] == ltrs[ix+2] {
+			return ltrs[ix], ltrs[ix+1], true
+		}
+	}
+	return NO_MATCH_RUNE, NO_MATCH_RUNE, false
 }
 
 // Returns true if given string contains at least one letter that appears twice in a row.
 func HasLetterPair(str string) bool {
-	return FindLetterPairIndex(str) >= 0
+	_, hasLP := FindLetterPair(str)
+	return hasLP
+}
+
+const NO_MATCH_RUNE = rune(0)
+
+// Returns (A,B,true) if given string contains ABA, else (_,_,false).
+func HasLetterSandwich(str string) bool {
+	_, _, hasLS := FindLetterSandwich(str)
+	return hasLS
 }
 
 func ReverseString(str string) string {

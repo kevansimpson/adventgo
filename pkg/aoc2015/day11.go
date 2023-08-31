@@ -84,10 +84,6 @@ func (d Day11) isPswdDisallowed(pswd string) bool {
 
 // Passwords must contain at least two different, non-overlapping pairs of letters,like aa, bb, or zz.
 func (d Day11) hasDistinctPairs(pswd string) bool {
-	firstIndex := util.FindLetterPairIndex(pswd)
-	if firstIndex < 0 {
-		return false
-	}
-
-	return util.HasLetterPair(pswd[firstIndex+2:])
+	firstIndex, hasPair := util.FindLetterPair(pswd)
+	return hasPair && util.HasLetterPair(pswd[firstIndex+2:])
 }

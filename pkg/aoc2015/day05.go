@@ -31,24 +31,13 @@ func (d Day05) isOldNice(str string) bool {
 }
 
 func (d Day05) isNewNice(str string) bool {
-	return d.hasAdjacentPairs(str) && d.hasLetterSandwich(str)
+	return d.hasAdjacentPairs(str) && util.HasLetterSandwich(str)
 }
 
 func (d Day05) hasAdjacentPairs(str string) bool {
 	max := len(str) - 2
 	for ix := 0; ix < max; ix += 1 {
 		if strings.Contains(str[ix+2:max+2], str[ix:ix+2]) {
-			return true
-		}
-	}
-	return false
-}
-
-func (d Day05) hasLetterSandwich(str string) bool {
-	ltrs := []rune(str)
-	max := len(str) - 2
-	for ix := 0; ix < max; ix += 1 {
-		if ltrs[ix] == ltrs[ix+2] {
 			return true
 		}
 	}

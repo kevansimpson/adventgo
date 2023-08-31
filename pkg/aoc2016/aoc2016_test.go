@@ -47,3 +47,10 @@ func TestDay06Solutions(t *testing.T) {
 	assert.Equal(t, "umcvzsmw", correctedVersion, "correctedVersion")
 	assert.Equal(t, "rwqoacfz", originalMessage, "originalMessage")
 }
+
+func TestDay07Solutions(t *testing.T) {
+	input := util.ReadLines("data/input07.txt")
+	tlsCount, sslCount := Day07{}.tallySecureIps(input)
+	assert.Equal(t, 118, tlsCount, "tlsCount")
+	assert.Equal(t, 260, sslCount, "sslCount")
+}
