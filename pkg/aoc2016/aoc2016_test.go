@@ -54,3 +54,9 @@ func TestDay07Solutions(t *testing.T) {
 	assert.Equal(t, 118, tlsCount, "tlsCount")
 	assert.Equal(t, 260, sslCount, "sslCount")
 }
+
+func TestDay08Solutions(t *testing.T) {
+	input := util.ReadLines("data/input08.txt")
+	count := Day08{}.swipeMagneticCard(input)
+	assert.Equal(t, 116, count, "count")
+}
