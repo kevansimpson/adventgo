@@ -67,3 +67,10 @@ func TestDay09Solutions(t *testing.T) {
 	assert.Equal(t, 123908, v1, "v1")
 	assert.Equal(t, 10755693147, v2, "v2")
 }
+
+func TestDay10Solutions(t *testing.T) {
+	input := util.ReadLines("data/input10.txt")
+	botNumber, chipProduct := Day10{}.inspectMicrochips(input)
+	assert.Equal(t, 116, botNumber, "botNumber")
+	assert.Equal(t, 23903, chipProduct, "chipProduct")
+}
