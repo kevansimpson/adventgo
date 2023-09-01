@@ -60,3 +60,10 @@ func TestDay08Solutions(t *testing.T) {
 	count := Day08{}.swipeMagneticCard(input)
 	assert.Equal(t, 116, count, "count")
 }
+
+func TestDay09Solutions(t *testing.T) {
+	input := util.ReadSingleLine("data/input09.txt")
+	v1, v2 := Day09{}.decompressFile(input)
+	assert.Equal(t, 123908, v1, "v1")
+	assert.Equal(t, 10755693147, v2, "v2")
+}

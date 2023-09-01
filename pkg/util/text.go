@@ -69,6 +69,14 @@ func HasLetterSandwich(str string) bool {
 	return hasLS
 }
 
+func IndexAfter(str string, sub string, index int) int {
+	found := strings.Index(str[index:], sub)
+	if found >= 0 {
+		found += index
+	}
+	return found
+}
+
 func ReverseString(str string) string {
 	rns := []rune(str)
 	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
