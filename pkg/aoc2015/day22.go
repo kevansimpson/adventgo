@@ -8,6 +8,8 @@ import (
 	"container/heap"
 	"fmt"
 	"sync"
+
+	"github.com/kevansimpson/util"
 )
 
 type Day22 struct{}
@@ -33,15 +35,19 @@ func (d Day22) wizardsFightBoss(boss Boss) (int, int) {
 func (d Day22) wizardVsBoss(boss Boss, extraDamage int, ch chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	lowestManaSpent := 2000
-	pq := make(PriorityQueue, 1)
-	pq[0] = &PQItem{
-		duel:     magicalDuel{wizard{50, 500, 0}, 0, make(map[string]int), boss.hitPoints},
-		priority: 0,
-		index:    0}
+	// https://pkg.go.dev/container/heap#:~:text=Example%20(-,PriorityQueue,-)%20%C2%B6
+	// implementation refactored to be generic - resides in util/queue.go
+	// anecdotal evidence: takes about 4 seconds less than manually sorting or
+	//   								finding the highest priority in a slice
+	pq := make(util.PriorityQueue[magicalDuel], 1)
+	pq[0] = &util.PQItem[magicalDuel]{
+		Value:    magicalDuel{wizard{50, 500, 0}, 0, make(map[string]int), boss.hitPoints},
+		Priority: 0,
+		Index:    0}
 
 	for pq.Len() > 0 {
-		pqItem := heap.Pop(&pq).(*PQItem)
-		duel := pqItem.duel
+		pqItem := heap.Pop(&pq).(*util.PQItem[magicalDuel])
+		duel := pqItem.Value
 
 		duel.wiz.hitPoints -= extraDamage
 		if duel.wiz.hitPoints <= 0 || duel.totalManaSpent > lowestManaSpent {
@@ -69,9 +75,9 @@ func (d Day22) wizardVsBoss(boss Boss, extraDamage int, ch chan<- int, wg *sync.
 					}
 
 					if copy.wiz.hitPoints > 0 && copy.wiz.mana > 0 && copy.totalManaSpent < lowestManaSpent {
-						variant := &PQItem{
-							duel:     copy,
-							priority: 1,
+						variant := &util.PQItem[magicalDuel]{
+							Value:    copy,
+							Priority: 1,
 						}
 						heap.Push(&pq, variant)
 					}
@@ -167,52 +173,4 @@ type wizard struct {
 
 func (w wizard) String() string {
 	return fmt.Sprintf("Wizard(hp=%d,mana=%d,armor=%d)", w.hitPoints, w.mana, w.armor)
-}
-
-// https://pkg.go.dev/container/heap#:~:text=Example%20(-,PriorityQueue,-)%20%C2%B6
-// anecdotal evidence: takes about 4 seconds less than manually sorting or finding the highest priority in a slice
-
-type PQItem struct {
-	duel     magicalDuel
-	priority int
-	index    int
-}
-
-type PriorityQueue []*PQItem
-
-func (pq PriorityQueue) Len() int { return len(pq) }
-
-func (pq PriorityQueue) Less(i, j int) bool {
-	// We want Pop to give us the highest, not lowest, priority so we use greater than here.
-	return pq[i].priority > pq[j].priority
-}
-
-func (pq PriorityQueue) Swap(i, j int) {
-	pq[i], pq[j] = pq[j], pq[i]
-	pq[i].index = i
-	pq[j].index = j
-}
-
-func (pq *PriorityQueue) Push(x any) {
-	n := len(*pq)
-	item := x.(*PQItem)
-	item.index = n
-	*pq = append(*pq, item)
-}
-
-func (pq *PriorityQueue) Pop() any {
-	old := *pq
-	n := len(old)
-	item := old[n-1]
-	old[n-1] = nil  // avoid memory leak
-	item.index = -1 // for safety
-	*pq = old[0 : n-1]
-	return item
-}
-
-// update modifies the priority and value of an Item in the queue.
-func (pq *PriorityQueue) update(item *PQItem, value magicalDuel, priority int) {
-	item.duel = value
-	item.priority = priority
-	heap.Fix(pq, item.index)
 }
