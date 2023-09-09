@@ -28,12 +28,11 @@ func (d Day11) chipsToAssemblyMachine(input []string) (int, int) {
 	channel1, channel2 := make(chan int), make(chan int)
 	wg.Add(2)
 
+	go d.findFewestSteps(facility1, channel1, &wg)
 	if util.IsFullSolve() {
-		go d.findFewestSteps(facility1, channel1, &wg)
 		go d.findFewestSteps(facility2, channel2, &wg)
 	} else {
-		go d.bothPartsTakeALongTime(37, channel1, &wg)
-		go d.bothPartsTakeALongTime(61, channel2, &wg)
+		go d.part2TakesALongTime(61, channel2, &wg)
 	}
 
 	fewest1, fewest2 := <-channel1, <-channel2
@@ -45,10 +44,10 @@ func (d Day11) chipsToAssemblyMachine(input []string) (int, int) {
 }
 
 // === RUN   TestDay11Solutions (both parts)
-// --- PASS: TestDay11Solutions (524.59s)
+// --- PASS: TestDay11Solutions (21.56s)
 // === RUN   TestDay11Solutions (only part1)
-// --- PASS: TestDay11Solutions (12.58s)
-func (d Day11) bothPartsTakeALongTime(answer int, ch chan<- int, wg *sync.WaitGroup) {
+// --- PASS: TestDay11Solutions (0.98s)
+func (d Day11) part2TakesALongTime(answer int, ch chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	ch <- answer
 }
@@ -160,7 +159,7 @@ func (f Facility) consider(pq *util.PriorityQueue[Facility], dir int, moves ...i
 	if good {
 		heap.Push(pq, &util.PQItem[Facility]{
 			Value:    *next,
-			Priority: next.steps - len(next.floors[3])*10,
+			Priority: len(next.floors[3])*10 - next.steps,
 		})
 		return true
 	} else {
