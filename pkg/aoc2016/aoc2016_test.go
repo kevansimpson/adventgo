@@ -74,3 +74,10 @@ func TestDay10Solutions(t *testing.T) {
 	assert.Equal(t, 116, botNumber, "botNumber")
 	assert.Equal(t, 23903, chipProduct, "chipProduct")
 }
+
+func TestDay11Solutions(t *testing.T) {
+	input := util.ReadLines("data/input11.txt")
+	fewestSteps, fewestStepsPlusED := Day11{}.chipsToAssemblyMachine(input)
+	assert.Equal(t, 37, fewestSteps, "fewestSteps")
+	assert.Equal(t, 61, fewestStepsPlusED, "fewestStepsPlusED")
+}

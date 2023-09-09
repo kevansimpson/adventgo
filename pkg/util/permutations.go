@@ -1,5 +1,30 @@
 package util
 
+// Returns all combinations with given length
+func Combinations[T any](input []T, length int) [][]T {
+	if length == 0 {
+		return [][]T{make([]T, 0)}
+	}
+
+	var result [][]T
+	max := len(input) - length
+	for i := 0; i <= max; i++ {
+		sub := Combinations(input[i+1:], length-1)
+		for _, perm := range sub {
+			sz := len(perm)
+			add := make([]T, sz+1)
+			add[0] = input[i]
+			for a := 0; a < sz; a++ {
+				add[a+1] = perm[a]
+			}
+			result = append(result, add)
+		}
+	}
+
+	return result
+}
+
+// Returns all permutations with same length as input
 func Permutations[T any](input []T) [][]T {
 	perms := [][]T{}
 	fact := factorial(len(input))
