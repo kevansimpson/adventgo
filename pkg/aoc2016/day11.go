@@ -6,6 +6,7 @@ package aoc2016
 
 import (
 	"container/heap"
+	"container/list"
 	"fmt"
 	"slices"
 	"sync"
@@ -13,7 +14,13 @@ import (
 	"github.com/kevansimpson/util"
 )
 
+type Day11_SearchAlgorithm interface {
+	findFewestSteps(floors [][]int, count int, ch chan<- int, wg *sync.WaitGroup)
+}
+
 type Day11 struct{}
+type Day11_BreadthFirstSearch struct{}
+type Day11_PriorityQueue struct{}
 
 type Facility struct {
 	floors     [][]int
@@ -22,17 +29,18 @@ type Facility struct {
 	steps      int
 }
 
-func (d Day11) chipsToAssemblyMachine(input []string) (int, int) {
+func (d Day11) chipsToAssemblyMachine(input []string, algo Day11_SearchAlgorithm) (int, int) {
 	facility1, facility2 := d.constructFacilities()
 	var wg sync.WaitGroup
 	channel1, channel2 := make(chan int), make(chan int)
 	wg.Add(2)
 
-	go d.findFewestSteps(facility1, channel1, &wg)
+	go algo.findFewestSteps(facility1, 10, channel1, &wg)
 	if util.IsFullSolve() {
-		go d.findFewestSteps(facility2, channel2, &wg)
+		go algo.findFewestSteps(facility2, 14, channel2, &wg)
 	} else {
-		go d.part2TakesALongTime(61, channel2, &wg)
+		// go algo.findFewestSteps(facility2, 14, channel2, &wg)
+		go d.part2LongerThanOneSecond(61, channel2, &wg)
 	}
 
 	fewest1, fewest2 := <-channel1, <-channel2
@@ -43,22 +51,56 @@ func (d Day11) chipsToAssemblyMachine(input []string) (int, int) {
 	return fewest1, fewest2
 }
 
-// === RUN   TestDay11Solutions (both parts)
-// --- PASS: TestDay11Solutions (21.56s)
-// === RUN   TestDay11Solutions (only part1)
-// --- PASS: TestDay11Solutions (0.98s)
-func (d Day11) part2TakesALongTime(answer int, ch chan<- int, wg *sync.WaitGroup) {
+func (d Day11) part2LongerThanOneSecond(answer int, ch chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	ch <- answer
 }
 
-func (d Day11) findFewestSteps(floors [][]int, ch chan<- int, wg *sync.WaitGroup) {
+// === RUN   TestDay11Solutions
+// --- PASS: TestDay11Solutions (12.03s)
+
+func (d Day11_BreadthFirstSearch) findFewestSteps(floors [][]int, count int, ch chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	count := 0 // number of elements
-	for _, f := range floors {
-		count += len(f)
+	depth := -1
+	depthMap := make(map[string]int)
+	nodes := list.New()
+	nodes.PushFront(&Facility{floors: floors, elevatorAt: 0, size: count, steps: 0})
+
+	for nodes.Len() > 0 {
+		next := list.New()
+		depth++
+		for f := nodes.Front(); f != nil; f = f.Next() {
+			current := f.Value.(*Facility)
+			uuid := fmt.Sprintf("%d-%v", current.elevatorAt, current.floors)
+			soonest, hasFacility := depthMap[uuid]
+			if hasFacility && soonest <= current.steps {
+				continue
+			} else {
+				depthMap[uuid] = current.steps
+			}
+			if current.isDone() {
+				ch <- current.steps
+				return
+			}
+
+			current.nextMove(func(n Facility) {
+				next.PushBack(&n)
+			})
+		}
+
+		nodes = next
 	}
+
+	ch <- -1
+}
+
+// === RUN   TestDay11Solutions (both parts)
+// --- PASS: TestDay11Solutions (21.56s)
+// === RUN   TestDay11Solutions (only part1)
+// --- PASS: TestDay11Solutions (0.98s)
+func (d Day11_PriorityQueue) findFewestSteps(floors [][]int, count int, ch chan<- int, wg *sync.WaitGroup) {
+	defer wg.Done()
 
 	fewest := 100
 	depthMap := make(map[string]int)
@@ -83,35 +125,46 @@ func (d Day11) findFewestSteps(floors [][]int, ch chan<- int, wg *sync.WaitGroup
 			if fewest > current.steps {
 				fewest = current.steps
 			}
+			continue
 		}
 
-		presentOnFloor := current.floors[current.elevatorAt]
-		pairs := util.Combinations(presentOnFloor, 2)
-		movePairDown := true
+		current.nextMove(func(n Facility) {
+			heap.Push(&pq, &util.PQItem[Facility]{
+				Value:    n,
+				Priority: len(n.floors[3])*10 - n.steps,
+			})
+		})
+	}
+	ch <- fewest
+}
+
+func (current Facility) nextMove(consumer func(Facility)) {
+	presentOnFloor := current.floors[current.elevatorAt]
+	pairs := util.Combinations(presentOnFloor, 2)
+	movePairDown := true
+	for _, move2 := range pairs {
+		if current.consider(consumer, 1, move2...) {
+			movePairDown = false
+		}
+	}
+
+	for _, move1 := range presentOnFloor {
+		if current.consider(consumer, 1, move1) {
+			movePairDown = false
+		}
+		if current.consider(consumer, -1, move1) {
+			movePairDown = false
+		}
+	}
+
+	if movePairDown {
 		for _, move2 := range pairs {
-			if current.consider(&pq, 1, move2...) {
+			if current.consider(consumer, -1, move2...) {
 				movePairDown = false
-			}
-		}
-
-		for _, move1 := range presentOnFloor {
-			if current.consider(&pq, 1, move1) {
-				movePairDown = false
-			}
-			if current.consider(&pq, -1, move1) {
-				movePairDown = false
-			}
-		}
-
-		if movePairDown {
-			for _, move2 := range pairs {
-				if current.consider(&pq, -1, move2...) {
-					movePairDown = false
-				}
 			}
 		}
 	}
-	ch <- fewest
+
 }
 
 func (f Facility) isDone() bool {
@@ -154,13 +207,10 @@ func (f Facility) moveElevator(dir int, parts ...int) (*Facility, bool) {
 	return nil, false
 }
 
-func (f Facility) consider(pq *util.PriorityQueue[Facility], dir int, moves ...int) bool {
+func (f Facility) consider(consumer func(Facility), dir int, moves ...int) bool {
 	next, good := f.moveElevator(dir, moves...)
 	if good {
-		heap.Push(pq, &util.PQItem[Facility]{
-			Value:    *next,
-			Priority: len(next.floors[3])*10 - next.steps,
-		})
+		consumer(*next)
 		return true
 	} else {
 		return false

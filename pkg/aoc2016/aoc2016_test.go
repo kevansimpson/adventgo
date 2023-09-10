@@ -75,9 +75,16 @@ func TestDay10Solutions(t *testing.T) {
 	assert.Equal(t, 23903, chipProduct, "chipProduct")
 }
 
-func TestDay11Solutions(t *testing.T) {
+func TestDay11Solutions_BreadthFirstSearch(t *testing.T) {
 	input := util.ReadLines("data/input11.txt")
-	fewestSteps, fewestStepsPlusED := Day11{}.chipsToAssemblyMachine(input)
+	fewestSteps, fewestStepsPlusED := Day11{}.chipsToAssemblyMachine(input, Day11_BreadthFirstSearch{})
+	assert.Equal(t, 37, fewestSteps, "fewestSteps")
+	assert.Equal(t, 61, fewestStepsPlusED, "fewestStepsPlusED")
+}
+
+func TestDay11Solutions_PriorityQueue(t *testing.T) {
+	input := util.ReadLines("data/input11.txt")
+	fewestSteps, fewestStepsPlusED := Day11{}.chipsToAssemblyMachine(input, Day11_PriorityQueue{})
 	assert.Equal(t, 37, fewestSteps, "fewestSteps")
 	assert.Equal(t, 61, fewestStepsPlusED, "fewestStepsPlusED")
 }
