@@ -51,7 +51,7 @@ func (d Day05) nextHashPassword(input string, chHash chan<- string, chPswd chan<
 	secondPswd := []rune{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
 
 	for p2 < 8 {
-		next, ix := util.NextHash(input, "00000", start)
+		next, ix := util.NextHashWithPrefix(input, "00000", start)
 		chHash <- next
 
 		if strings.Contains("01234567", string(next[5])) {

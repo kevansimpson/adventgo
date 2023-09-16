@@ -19,6 +19,6 @@ func (d Day04) sixZeroHash(input string) int {
 }
 
 func (d Day04) nextHash(input string, prefix string, start int) int {
-	_, ix := util.NextHash(input, prefix, start)
+	_, ix := util.NextHashWithPrefix(input, prefix, start)
 	return ix
 }
