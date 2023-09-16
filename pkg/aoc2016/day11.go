@@ -39,7 +39,6 @@ func (d Day11) chipsToAssemblyMachine(input []string, algo Day11_SearchAlgorithm
 	if util.IsFullSolve() {
 		go algo.findFewestSteps(facility2, 14, channel2, &wg)
 	} else {
-		// go algo.findFewestSteps(facility2, 14, channel2, &wg)
 		go d.part2LongerThanOneSecond(61, channel2, &wg)
 	}
 
@@ -56,9 +55,10 @@ func (d Day11) part2LongerThanOneSecond(answer int, ch chan<- int, wg *sync.Wait
 	ch <- answer
 }
 
-// === RUN   TestDay11Solutions
+// === RUN   TestDay11Solutions (both parts)
 // --- PASS: TestDay11Solutions (12.03s)
-
+// === RUN   TestDay11Solutions (only part1)
+// --- PASS: TestDay11Solutions (0.34s)
 func (d Day11_BreadthFirstSearch) findFewestSteps(floors [][]int, count int, ch chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
 

@@ -88,3 +88,10 @@ func TestDay11Solutions_PriorityQueue(t *testing.T) {
 	assert.Equal(t, 37, fewestSteps, "fewestSteps")
 	assert.Equal(t, 61, fewestStepsPlusED, "fewestStepsPlusED")
 }
+
+func TestDay12Solutions(t *testing.T) {
+	input := util.ReadLines("data/input12.txt")
+	code0, code1 := Day12{}.computerInstructions(input)
+	assert.Equal(t, 318020, code0, "code0")
+	assert.Equal(t, 9227674, code1, "code1")
+}
