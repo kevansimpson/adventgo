@@ -95,3 +95,9 @@ func TestDay12Solutions(t *testing.T) {
 	assert.Equal(t, 318020, code0, "code0")
 	assert.Equal(t, 9227674, code1, "code1")
 }
+
+func TestDay13Solutions(t *testing.T) {
+	fewestSteps, withinRange := Day13{}.cubicleMaze(1362)
+	assert.Equal(t, 82, fewestSteps, "fewestSteps")
+	assert.Equal(t, 138, withinRange, "withinRange")
+}

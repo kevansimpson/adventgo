@@ -15,6 +15,13 @@ pass a boolean argument of `-full=true`:
 go test -v ./pkg/aoc<YYYY> -full=true
 ```
 
+To run a single test:
+```
+go test -v ./pkg/aoc<YYYY> -run TestDay<XX>Solutions
+```
+where `<XX>` is the two digit day, from \[01-25\].
+
+
 To run all tests:
 ```
 find . -name go.mod -execdir go test ./... \;
@@ -71,6 +78,9 @@ Solution comparisons by year and language:
 | [Day07](https://adventofcode.com/2016/day/7)  | [Day07](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day07.java) | [Day07](https://github.com/kevansimpson/advent-of-kotlin/blob/main/src/main/kotlin/org/base/advent/k2016/Day07.kt) | [Day07](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day07.go) |
 | [Day08](https://adventofcode.com/2016/day/8)  | [Day08](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day08.java) | [Day08](https://github.com/kevansimpson/advent-of-kotlin/blob/main/src/main/kotlin/org/base/advent/k2016/Day08.kt) | [Day08](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day08.go) |
 | [Day09](https://adventofcode.com/2016/day/9)  | [Day09](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day09.java) | [Day09](https://github.com/kevansimpson/advent-of-kotlin/blob/main/src/main/kotlin/org/base/advent/k2016/Day09.kt) | [Day09](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day09.go) |
-| [Day10](https://adventofcode.com/2016/day/10) | [Day10](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day10.java) | [Day10](https://github.com/kevansimpson/advent-of-kotlin/blob/main/src/main/kotlin/org/base/advent/k2016/Day10.kt) | [Day10](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day10.go)|
+| [Day10](https://adventofcode.com/2016/day/10) | [Day10](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day10.java) | [Day10](https://github.com/kevansimpson/advent-of-kotlin/blob/main/src/main/kotlin/org/base/advent/k2016/Day10.kt) | [Day10](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day10.go) |
+| [Day11](https://adventofcode.com/2016/day/11) | [Day11](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day11.java) | n/a                                                                                                                | [Day11](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day11.go) |
+| [Day12](https://adventofcode.com/2016/day/12) | [Day12](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day11.java) | n/a                                                                                                                | [Day12](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day12.go) |
+| [Day13](https://adventofcode.com/2016/day/13) | [Day13](https://github.com/kevansimpson/advent-of-code/blob/main/src/main/java/org/base/advent/code2016/Day11.java) | n/a                                                                                                                | [Day13](https://github.com/kevansimpson/adventgo/blob/main/pkg/aoc2016/day13.go) |
 
 [Back to top](#comparisons)
