@@ -20,3 +20,10 @@ func TestDay02Solutions(t *testing.T) {
 	assert.Equal(t, 4570637, moduleFuel, "moduleFuel")
 	assert.Equal(t, 5485, withAddedFuel, "withAddedFuel")
 }
+
+func TestDay03Solutions(t *testing.T) {
+	input := util.ReadLines("data/input03.txt")
+	centralPort, fewestToIntersection := Day03{}.installCircuits(input)
+	assert.Equal(t, 352, centralPort, "centralPort")
+	assert.Equal(t, 43848, fewestToIntersection, "fewestToIntersection")
+}

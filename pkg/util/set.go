@@ -22,10 +22,28 @@ func AddSet[T comparable](set Set[T], elem Set[T]) {
 	}
 }
 
+func Intersection[T comparable](set1 Set[T], set2 Set[T]) Set[T] {
+	set3 := make(Set[T])
+	for pt := range set1 {
+		_, hasPt := set2[pt]
+		if hasPt {
+			Add(set3, pt)
+		}
+	}
+
+	return set3
+}
+
 func SetToSlice[T comparable](set Set[T]) []T {
 	var list []T
 	for key := range set {
 		list = append(list, key)
 	}
 	return list
+}
+
+func SliceToSet[T comparable](slice []T) Set[T] {
+	set := make(Set[T])
+	AddAll(set, slice)
+	return set
 }
