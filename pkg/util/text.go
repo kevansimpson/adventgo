@@ -43,6 +43,18 @@ func FindLetterPair(str string) (int, bool) {
 	return -1, false
 }
 
+// Returns the index if at least one letter that appears thrice in a row in the given string, else returns -1.
+func FindLetterTriplet(str string) (int, bool) {
+	ltrs := []rune(str)
+	max := len(str) - 2
+	for ix := 0; ix < max; ix += 1 {
+		if ltrs[ix] == ltrs[ix+1] && ltrs[ix+1] == ltrs[ix+2] {
+			return ix, true
+		}
+	}
+	return -1, false
+}
+
 // Returns (A,B,true) if given string contains ABA, else (_,_,false).
 func FindLetterSandwich(str string) (rune, rune, bool) {
 	ltrs := []rune(str)
@@ -59,6 +71,12 @@ func FindLetterSandwich(str string) (rune, rune, bool) {
 func HasLetterPair(str string) bool {
 	_, hasLP := FindLetterPair(str)
 	return hasLP
+}
+
+// Returns true if given string contains at least one letter that appears thrice in a row.
+func HasLetterTriplet(str string) bool {
+	_, hasLT := FindLetterTriplet(str)
+	return hasLT
 }
 
 const NO_MATCH_RUNE = rune(0)

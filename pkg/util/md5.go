@@ -24,9 +24,13 @@ func NextHashWithPrefix(input string, prefix string, start int) (string, int) {
 
 // Finds the next MD5 hash in hexidecimal matching the given predicate
 func NextHash(input string, start int, predicate func(string) bool) (string, int) {
+	return NextHashUntil(input, start, math.MaxInt, predicate)
+}
+
+// Finds the next MD5 hash in hexidecimal matching the given predicate
+func NextHashUntil(input string, start int, endExclusive int, predicate func(string) bool) (string, int) {
 	h := md5.New()
-	for i := start; start <= math.MaxInt; i += 1 {
-		// next := GenerateMD5inHex(input + fmt.Sprintf("%d", i))
+	for i := start; i < endExclusive; i += 1 {
 		io.WriteString(h, fmt.Sprintf("%s%d", input, i))
 		next := fmt.Sprintf("%x", h.Sum(nil))
 		if predicate(next) {
