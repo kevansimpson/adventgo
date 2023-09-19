@@ -5,6 +5,7 @@ import (
 	"flag"
 	"os"
 	"strconv"
+	"strings"
 )
 
 var fullSolve = flag.String("full", "false", "bool flag to run full solutions")
@@ -59,6 +60,17 @@ func ReadLines(filename string) []string {
 
 func ReadNumbers(filename string) []int {
 	lines := ReadLines(filename)
+	var nums []int
+	for _, str := range lines {
+		n, _ := strconv.Atoi(str)
+		nums = append(nums, n)
+	}
+
+	return nums
+}
+
+func ReadCsvNumbers(filename string) []int {
+	lines := strings.Split(ReadSingleLine(filename), ",")
 	var nums []int
 	for _, str := range lines {
 		n, _ := strconv.Atoi(str)
