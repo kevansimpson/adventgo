@@ -101,3 +101,9 @@ func TestDay13Solutions(t *testing.T) {
 	assert.Equal(t, 82, fewestSteps, "fewestSteps")
 	assert.Equal(t, 138, withinRange, "withinRange")
 }
+
+func TestDay14Solutions(t *testing.T) {
+	key64, stretchedKey64 := Day14{}.find64thKeys("cuanljph")
+	assert.Equal(t, 23769, key64, "key64")
+	assert.Equal(t, 20606, stretchedKey64, "stretchedKey64")
+}
