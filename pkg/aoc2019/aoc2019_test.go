@@ -33,3 +33,10 @@ func TestDay04Solutions(t *testing.T) {
 	assert.Equal(t, 1178, pswdCount1, "pswdCount1")
 	assert.Equal(t, 763, pswdCount2, "pswdCount2")
 }
+
+func TestDay05Solutions(t *testing.T) {
+	input := util.ReadCsvNumbers("data/input05.txt")
+	diagCode1, diagCode5 := Day05{}.runProgram(input)
+	assert.Equal(t, 13285749, diagCode1, "diagCode1")
+	assert.Equal(t, 5000972, diagCode5, "diagCode5")
+}
