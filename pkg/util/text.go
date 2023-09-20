@@ -2,6 +2,7 @@ package util
 
 import (
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -119,4 +120,13 @@ func ShiftText(str string, shift int) string {
 		}
 	}
 	return string(next)
+}
+
+// Sorts string alphabetically
+func SortString(str string) string {
+	chars := []rune(str)
+	sort.Slice(chars, func(i, j int) bool { //sort the string using the function
+		return chars[i] < chars[j]
+	})
+	return string(chars)
 }

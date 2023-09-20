@@ -27,3 +27,9 @@ func TestDay03Solutions(t *testing.T) {
 	assert.Equal(t, 352, centralPort, "centralPort")
 	assert.Equal(t, 43848, fewestToIntersection, "fewestToIntersection")
 }
+
+func TestDay04Solutions(t *testing.T) {
+	pswdCount1, pswdCount2 := Day04{}.countValidPasswords(235741, 706948)
+	assert.Equal(t, 1178, pswdCount1, "pswdCount1")
+	assert.Equal(t, 763, pswdCount2, "pswdCount2")
+}
