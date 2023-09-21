@@ -40,3 +40,10 @@ func TestDay05Solutions(t *testing.T) {
 	assert.Equal(t, 13285749, diagCode1, "diagCode1")
 	assert.Equal(t, 5000972, diagCode5, "diagCode5")
 }
+
+func TestDay06Solutions(t *testing.T) {
+	input := util.ReadLines("data/input06.txt")
+	totalOrbits, minimumTransfers := Day06{}.mapOrbitalTransfers(input)
+	assert.Equal(t, 249308, totalOrbits, "totalOrbits")
+	assert.Equal(t, 349, minimumTransfers, "minimumTransfers")
+}
