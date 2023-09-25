@@ -47,3 +47,10 @@ func TestDay06Solutions(t *testing.T) {
 	assert.Equal(t, 249308, totalOrbits, "totalOrbits")
 	assert.Equal(t, 349, minimumTransfers, "minimumTransfers")
 }
+
+func TestDay07Solutions(t *testing.T) {
+	input := util.ReadCsvNumbers("data/input07.txt")
+	sansFeedback, withFeedback := Day07{}.chainAmplifiers(input)
+	assert.Equal(t, 75228, sansFeedback, "sansFeedback")
+	assert.Equal(t, 79846026, withFeedback, "withFeedback")
+}
