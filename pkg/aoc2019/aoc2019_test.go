@@ -62,3 +62,10 @@ func TestDay08Solutions(t *testing.T) {
 	expectedImage := "011001111010000100101000010010100001000010010100001000011100100001001010000100001000010000100101000010010100001000010010100000110010000111100110011110"
 	assert.Equal(t, expectedImage, drawImage, "drawImage")
 }
+
+func TestDay09Solutions(t *testing.T) {
+	input := util.ReadCsvNumbers("data/input09.txt")
+	code1, code2 := Day09{}.runProgram(input)
+	assert.Equal(t, 2453265701, code1, "code1")
+	assert.Equal(t, 80805, code2, "code2")
+}

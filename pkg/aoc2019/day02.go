@@ -24,3 +24,8 @@ func (d Day02) targetOutput(input []int) int {
 	}
 	return -1
 }
+
+func (p Program) gravityAssist(position1 int, position2 int) {
+	p.Codes[1] = position1
+	p.Codes[2] = position2
+}
