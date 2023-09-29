@@ -54,3 +54,11 @@ func TestDay07Solutions(t *testing.T) {
 	assert.Equal(t, 75228, sansFeedback, "sansFeedback")
 	assert.Equal(t, 79846026, withFeedback, "withFeedback")
 }
+
+func TestDay08Solutions(t *testing.T) {
+	input := util.ReadSingleLine("data/input08.txt")
+	zeroLayer, drawImage := Day08{}.layerImages(input)
+	assert.Equal(t, 1935, zeroLayer, "zeroLayer")
+	expectedImage := "011001111010000100101000010010100001000010010100001000011100100001001010000100001000010000100101000010010100001000010010100000110010000111100110011110"
+	assert.Equal(t, expectedImage, drawImage, "drawImage")
+}
