@@ -4,7 +4,9 @@ package aoc2019
  * <a href="https://adventofcode.com/2019/day/8">Day 8</a>
  */
 
-import "strings"
+import (
+	"strings"
+)
 
 type Day08 struct{}
 
@@ -28,22 +30,17 @@ func (d Day08) zeroLayer(layers []string) int {
 }
 
 func (d Day08) drawImage(layers []string) string {
-	firstLayer := strings.Split(layers[0], "")
+	decoded := []rune(layers[0])
 	for i := 1; i < len(layers); i++ {
 		layer := layers[i]
 		for p := 0; p < len(layer); p++ {
-			if firstLayer[p] == "2" {
-				firstLayer[p] = string(layer[p])
+			if decoded[p] == '2' {
+				decoded[p] = rune(layer[p])
 			}
 		}
 	}
 
-	decoded := ""
-	for _, ch := range firstLayer {
-		decoded += ch
-	}
-
-	return decoded
+	return string(decoded)
 }
 
 func (d Day08) toLayers(input string) []string {
